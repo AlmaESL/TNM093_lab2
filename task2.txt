@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2013, 2017, Karljohan Lundin Palmerius
+
+This is a stubb for laborations on multi-modal display
+systems in the VR laboratory. It will disable the X3D
+navigation to allow for viewpoint calibration and tracking,
+and load libraries commonly used in the VR laboratory.
+
+-->
+<X3D>
+<Scene>
+  <Group>
+  
+  <PythonScript url="urn:candy:python/CorrectViewpoint.py"/>
+  
+  <PythonScript url="urn:candy:python/AutoLoadSO.py"/>
+  <Viewpoint position="0 0 0"/>
+  
+
+  
+  <!-- Put your code here -->
+  
+  <Transform translation="0 -0.2 -1">
+  <Shape DEF="BenBak">
+  <Appearance><Material diffuseColor="0.5 0 0"/></Appearance>
+  <Box size="0.06 0.1 0.06" solid="false"/>
+  </Shape>
+  </Transform>
+  
+  <Transform translation="0.07 -0.2 -1">
+  <Shape USE="BenBak"/>
+  </Transform>
+  
+  <Transform translation="0 -0.2 -0.7">
+  <Shape DEF="BenFram">
+  <Appearance><Material diffuseColor="0.5 0 0"/></Appearance>
+  <Box size="0.06 0.1 0.06" solid="false"/>
+  </Shape>
+  </Transform>
+  
+   <Transform translation="0.07 -0.2 -0.7">
+  <Shape USE="BenFram"/>
+  </Transform>
+  
+  <Transform DEF="Sitts" translation="0.035 -0.152 -0.9">
+  <Shape>
+  <Appearance><Material diffuseColor="0.5 0 0"/></Appearance>
+  <Box size="0.13 0.005 0.45" solid="false"/>
+  </Shape>
+  </Transform>
+  
+  <Transform DEF="Rygg" translation="0.035 -0.07 -1">
+  <Shape>
+  <Appearance><Material diffuseColor="0.5 0 0"/></Appearance>
+  <Box size="0.13 0.16 0.06" solid="false"/>
+  </Shape>
+  </Transform>
+  
+   <Transform translation="0.1 0.025 -1">
+   <Shape> 
+	  
+	<Appearance DEF="slay">
+		<Material diffuseColor="0 0.5 0"/>
+	</Appearance>
+  
+	<Sphere radius="0.015"/>
+  </Shape>
+  </Transform>
+  
+  
+  <Transform translation="-0.025 0.025 -1">
+  <Shape>  
+	<Appearance USE="slay"/>
+		
+	<Sphere radius="0.015"/>
+  </Shape>
+  </Transform>
+ 
+  
+</Group>
+</Scene>
+</X3D>
