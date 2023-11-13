@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2013, 2017, Karljohan Lundin Palmerius
+
+This is a stubb for laborations on multi-modal display
+systems in the VR laboratory. It will disable the X3D
+navigation to allow for viewpoint calibration and tracking,
+and load libraries commonly used in the VR laboratory.
+
+-->
+<X3D>
+<Scene>
+
+<MatrixTransform DEF="Mat_trans">
+  <Group>
+  
+  <PythonScript url="urn:candy:python/CorrectViewpoint.py"/>
+  <PythonScript url="urn:candy:python/AutoLoadSO.py"/>	<!-- to read sound files-->
+  <!-- depth cues; tracked stereoscopic + monoscopic and untracked stereoscopic  + monoscopic -->
+   <!-- <Inline url="urn:candy:x3d/view-untracked-stereo.x3d"/> -->
+  <!--  <Inline url="urn:candy:x3d/view-untracked-mono.x3d"/>  -->
+  <Inline url="urn:candy:x3d/view-head-tracked-stereo.x3d"/>
+  <!-- <Inline url="urn:candy:x3d/view-head-tracked-mono.x3d"/>   -->
+  
+<!--  <Inline url="urn:candy:x3d/model_FeedbackTip.x3d"/>  -->
+
+
+
+  
+<!--
+  <Viewpoint
+  position="0 0 0.2"/>
+  -->
+
+<!-- go between view points using pgUp and ogDn keys -->
+  <!--
+  <SMViewpoint 
+   position="-0.5 0.5 2"
+  screenLowerLeft="-0.4 -0.15 -0.1"
+  screenUpperRight="0.12 0.15 -0.1"
+  /> 
+  -->
+
+  
+    <SMViewpoint 
+   position="1.5 1 2"
+  screenLowerLeft="-0.4 -0.15 -0.1"
+  screenUpperRight="0.12 0.15 -0.1"
+  /> 
+  
+<!-- task 12, placing sound sources --> 
+
+<!-- first sound source in the floor -->
+<VRSound location="0 0 -18" spatialize = "true">
+	<AudioClip DEF="sound1" url="./sound/ljud-bonk-1.wav" loop ="false"/>
+</VRSound>
+
+<!-- second sound source in the back of the chair -->
+<VRSound location="0.035 -0.07 -1" spatialize="true">
+	<AudioClip DEF="sound2" url ="./sound/ljud-bonk-7.wav" loop ="false"/>
+</VRSound>
+
+<!-- time triggers and boolean filters for the two sound sources -->
+<TimeTrigger DEF="T1"/>
+<TimeTrigger DEF="T2"/>
+<BooleanFilter DEF="BF1"/>
+<BooleanFilter DEF="BF2"/>
+
+
+  <!-- task 8 - point light to create shadows -->
+ <PointLight 
+ location="-1 1 1" global="true"
+ />
+  
+  <Transform rotation="0 1 0 0.9" scale="0.2 0.2 0.2" translation="0 0 0">
+  
+
+  
+  <!-- Put your code here -->
+  
+ <!-- bakben-->
+  <Transform translation="0 -0.2 -1">
+  <Shape DEF="BenBak">
+  <Appearance shadow="true">
+  <Material diffuseColor="0.5 0 0"/>
+  </Appearance>
+  <Box size="0.06 0.1 0.06" solid="false"/>
+  </Shape>
+  </Transform>
+  
+  <Transform translation="0.07 -0.2 -1">
+  <Shape>
+  <Appearance shadow="true">
+  <Material diffuseColor="0.5 0 0"/>
+  </Appearance>
+  <Box size="0.06 0.1 0.06" solid="false"/>
+  </Shape>
+  </Transform>
+  
+  <!-- framben-->
+  <Transform translation="0 -0.2 -0.7">
+  <Shape DEF="BenFram">
+  <Appearance shadow="true"><Material specularColor="164 116 73"/>
+  <!-- wood -->
+    <FrictionalSurface staticFriction='0.3' dynamicFriction='0.1' 
+                             stiffness='1000' damping='0.8' 
+                             useRelativeValues='false' />
+							 </Appearance>
+  <Box size="0.06 0.1 0.06" solid="false"/>
+  </Shape>
+  </Transform>
+  
+   <Transform translation="0.07 -0.2 -0.7">
+   <Shape>
+   <Appearance shadow="true"><Material diffuseColor="0.5 0 0"/></Appearance>
+   <Box size="0.06 0.1 0.06" solid="false"/>
+  </Shape>
+  </Transform>
+  
+  <!-- sitts -->
+  <Transform DEF="Sitts" translation="0.035 -0.152 -0.85">
+  <Shape>
+  <Appearance  shadow="true"><Material diffuseColor="0.5 0 0"/>
+  <!-- "mjukare" dyna -->
+  <FrictionalSurface staticFriction='0.9' dynamicFriction='0.9' 
+                             stiffness='400' damping='3' 
+                             useRelativeValues='false' />
+							 </Appearance>
+  <Box size="0.13 0.005 0.35" solid="false"/>
+  </Shape>
+  </Transform>
+  
+  <!-- rygg-->
+  <Transform DEF="Rygg" translation="0.035 -0.07 -1">
+  <Shape>
+  <Appearance shadow="true"><Material diffuseColor="0.5 0 0"/>
+  <SmoothSurface stiffness="0.3"/>
+  </Appearance>
+  <Box DEF="sit" size="0.13 0.16 0.06" />
+  </Shape>
+  </Transform>
+  
+  <!-- spheres changing color on top of chair -->
+   <Transform translation="0.1 0.025 -1">
+   <Shape> 
+	  
+	<Appearance shadow="true">
+		<Material DEF="m1" diffuseColor="0 0.5 0"/>
+		<SmoothSurface stiffness="0.3"/>
+	</Appearance>
+  
+	<Sphere DEF="slay" radius="0.015"/>
+  </Shape>
+  </Transform>
+ 
+  
+  
+  <Transform translation="-0.025 0.025 -1">
+  <Shape>  
+	<Appearance shadow="true">
+		<Material diffuseColor="0 0.5 0"/>
+		<SmoothSurface stiffness="0.3"/>
+	</Appearance>
+	<Sphere radius="0.015"/>
+  </Shape>
+  </Transform>
+  
+  <!-- floor plane -->
+  
+  <Transform translation="0.035 -0.3 -1.2">
+  <Shape>
+  <Appearance><Material diffuseColor="1 1 1"/> 
+    <!-- stengolv-->
+  <FrictionalSurface staticFriction='0.7' dynamicFriction='0.5' 
+                             stiffness='1400' damping='0.5' 
+                             useRelativeValues='false' />
+							 
+  <SmoothSurface stiffness="0.3"/>
+  <ImageTexture url="./floor_tex.jpg"/>
+  </Appearance>
+  <Box DEF="floor" size="2 0.01 2"/>
+  </Shape>
+  </Transform> 
+ 
+ </Transform>
+  
+</Group>
+</MatrixTransform>
+
+
+
+<!-- import scripts for color changing -->
+<PythonScript DEF="python" url="X:\TNM093\lab2\files\ColorRandomizer.py"/>
+ <PythonScript DEF="converter" url="urn:candy:python/MFtoSFBool.py"/>
+ 
+ <!-- MFtoSFBool for sounds, cannot have more than one route for each instance -->
+  <PythonScript DEF="converter2" url="urn:candy:python/MFtoSFBool.py"/>
+  <PythonScript DEF="converter3" url="urn:candy:python/MFtoSFBool.py"/>
+
+<!-- routing for random color changing -->
+<ROUTE fromNode="slay" fromField="isTouched" 
+	toNode="converter" toField="value"/>
+
+<ROUTE fromNode="converter" fromField="value"
+	toNode="python" toField="color"/>
+
+<ROUTE fromNode="python" fromField="color"
+		toNode="m1" toField="diffuseColor"/>
+		
+		
+		<!-- task 7 -->
+		
+		<IMPORT inlineDEF="H3D_EXPORTS" exportedDEF = "HDEV" AS="HDEV"/>
+		
+	<!-- scripts for manual rotation and translation - task7 -->
+    <PythonScript DEF="MR" url="urn:candy:python/ManualRotation.py">
+		<Transform USE="Mat_trans" containerField="references"/>
+	</PythonScript>
+	
+	<PythonScript DEF="MT" url="urn:candy:python/ManualTranslation.py">
+		<Transform USE="Mat_trans" containerField="references"/>
+	</PythonScript>
+	
+	<!-- routing for manual translation - test in vr lab -->
+	<ROUTE fromNode="HDEV" fromField="mainButton" 
+		toNode="MT" toField="button" />
+	<ROUTE fromNode="HDEV" fromField="trackerPosition"
+		toNode="MT" toField="position"/> 
+	
+	<!-- routing for manual rotation - test in VR-lab -->
+	<ROUTE fromNode="HDEV" fromField="mainButton" 
+		toNode="MR" toField="button"/>
+		
+	<ROUTE fromNode="HDEV" fromField="trackerPosition" 
+		toNode="MR" toField="position"/>
+		
+	<ROUTE fromNode="HDEV" fromField="trackerOrientation" 
+		toNode="MR" toField="orientation"/>
+		
+	
+<!-- tasks 9-11 implemented in vr lab -->
+<!-- task 9 
+on: more depth perception, more 3D feeling
+off: more 2D feeling, flatter image -->
+
+<!-- task 10 
+easier to see if chair is connected to floor or floating above 
+chair size easier to determine in relation to floor and floor texture
+off: distored dimensions
+on: sharper/clearer image/dimensions--> 
+
+
+<!-- task 13 
+easiest to define sound direction left to right, slightly more difficult from infront to back and almost impossible up and down -->
+
+
+
+<!-- routing sound for task 12 - uses the is touched field just the same way as color randomization does-->
+<!-- 1. from geometry's isTouched via MFtoSFBool to value variable-->
+<!-- 2. from value variable in MFtoSFBool to the fist boolean filter BF1 -->
+<!-- 3. from BF1 to the first timeTrigger T1 -->
+<!-- 4. from timeTrigger to the first dound file sound1 -->
+
+<!-- route for floor -->
+
+<ROUTE fromNode="floor" fromField="isTouched" 
+		toNode ="converter2" toField="value"/>
+		
+<ROUTE fromNode="converter2" fromField="value"
+	toNode="BF1" toField="set_boolean"/>
+	
+<ROUTE fromNode="BF1" fromField="inputTrue"
+	toNode="T1" toField="set_boolean"/>
+	
+<ROUTE fromNode="T1" fromField="triggerTime"
+	toNode="sound1" toField="startTime"/>
+	
+
+		
+<!-- route for back of chair --> 
+
+<ROUTE fromNode="sit" fromField="isTouched"
+	toNode="converter3" toField="value"/>
+	
+<ROUTE fromNode="converter3" fromField="value" 
+	toNode="BF2" toField="set_boolean"/>
+	
+<ROUTE fromNode="BF2" fromField="inputTrue" 
+	toNode="T2" toField="set_boolean"/>
+	
+<ROUTE fromNode="T2" fromField="triggerTime"
+	toNode="sound2" toField="startTime"/>
+
+</Scene>
+</X3D>
